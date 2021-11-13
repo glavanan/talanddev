@@ -7,6 +7,7 @@ import (
 	"github.com/glavanan/talanddev/model"
 )
 
+//Convert the amount with the given currency
 func Convert(conv model.Convert) (*model.History, error) {
 	exchange := dbconnector.GetExchangeRate()
 	divide, ok := exchange[conv.Currency]
@@ -22,7 +23,11 @@ func Convert(conv model.Convert) (*model.History, error) {
 		CurrencyFrom: conv.Currency,
 		CurrencyTo:   conv.ConvertTo,
 		Amount:       conv.Amount,
-		Result:       toConv * multiply}
-
+		Result:       toConv * multiply,
+	}
+	err := AddHistory(result)
+	if err != nil {
+		return nil, err
+	}
 	return &result, nil
 }

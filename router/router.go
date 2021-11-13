@@ -9,5 +9,6 @@ import (
 func GetRouter() *gin.Engine {
 	router := gin.Default()
 	router.POST("convert", handler.Convert)
+	router.GET("histories", handler.GetHistories)
 	return router
 }

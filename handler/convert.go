@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 
@@ -11,9 +10,9 @@ import (
 	"github.com/glavanan/talanddev/service"
 )
 
+//Convert Converft an amount of money
 func Convert(c *gin.Context) {
 	var convert model.Convert
-	fmt.Printf("In Handler")
 	body, err := ioutil.ReadAll(c.Request.Body)
 	if err != nil {
 		c.AbortWithError(http.StatusBadRequest, err)
@@ -30,5 +29,16 @@ func Convert(c *gin.Context) {
 		return
 	}
 	c.JSON(200, result)
+	return
+}
+
+//GetHistories return list of histories
+func GetHistories(c *gin.Context) {
+	histories, err := service.GetHistories()
+	if err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+	c.JSON(200, histories)
 	return
 }

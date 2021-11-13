@@ -10,6 +10,7 @@ type Convert struct {
 	ConvertTo string    `json:"convert_to"`
 }
 
+//Exchange map of value of currency
 type Exchange struct {
 	Rates map[string]float64 `json:"rates"`
 }
@@ -22,4 +23,9 @@ type History struct {
 	CurrencyTo   string    `json:"currency_to" gorm:"currency_to"`
 	Result       float64   `json:"result" gorm:"result"`
 	Date         time.Time `json:"date" gorm:"date"`
+}
+
+//TableName ...
+func (h History) TableName() string {
+	return "history"
 }
