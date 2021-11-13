@@ -13,3 +13,13 @@ type Convert struct {
 type Exchange struct {
 	Rates map[string]float64 `json:"rates"`
 }
+
+//History model of data in db
+type History struct {
+	ID           int       `json:"id" gorm:"id"`
+	Amount       float64   `json:"amount" gorm:"amount"`
+	CurrencyFrom string    `json:"currency_from" gorm:"currency_from"`
+	CurrencyTo   string    `json:"currency_to" gorm:"currency_to"`
+	Result       float64   `json:"result" gorm:"result"`
+	Date         time.Time `json:"date" gorm:"date"`
+}

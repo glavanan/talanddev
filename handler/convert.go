@@ -16,11 +16,19 @@ func Convert(c *gin.Context) {
 	fmt.Printf("In Handler")
 	body, err := ioutil.ReadAll(c.Request.Body)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, err)
+		c.AbortWithError(http.StatusBadRequest, err)
+		return
 	}
 	err = json.Unmarshal(body, &convert)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, err)
+		c.AbortWithError(http.StatusBadRequest, err)
+		return
 	}
-	service.Convert(convert)
+	result, err := service.Convert(convert)
+	if err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+	c.JSON(200, result)
+	return
 }
